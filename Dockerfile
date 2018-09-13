@@ -1,13 +1,19 @@
-FROM centos/python-27-centos7:latest
+FROM centos:centos7
 LABEL maintainer="Eugene Kirillov"
 ENV container=docker
 
+#Creating workdir
+RUN mkdir -p /opt/app-root/
+WORKDIR /opt/app-root/
 COPY requirements.txt ./requirements.txt
 
-#Required due bug with environment https://github.com/sclorg/s2i-python-container/issues/226
-ENV LD_LIBRARY_PATH=/opt/rh/python27/root/usr/lib64:/opt/rh/rh-nodejs8/root/usr/lib64:/opt/rh/httpd24/root/usr/lib64
+#Installing all binary tools
+RUN yum -y update; yum clean all
+RUN yum -y install epel-release; yum clean all
+RUN yum -y install python-pip python-virtualenv graphviz; yum clean all
 
-RUN /opt/app-root/bin/pip install --upgrade pip
-RUN /opt/app-root/bin/pip install -r requirements.txt
+#Installing python tools
+RUN pip install -U pip
+RUN pip install -r requirements.txt
 
 CMD ["/bin/bash"]
