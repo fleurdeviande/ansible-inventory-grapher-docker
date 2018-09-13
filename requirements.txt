@@ -1,3 +1,4 @@
 ansible==2.7.0rc1
 ansible-inventory-grapher==2.4.5
 ansible-playbook-grapher==0.7.3
+ansible-lint==3.4.23
