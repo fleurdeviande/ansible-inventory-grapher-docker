@@ -10,7 +10,7 @@ COPY requirements.txt ./requirements.txt
 #Installing all binary tools
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
-RUN yum -y install python-pip python-virtualenv graphviz; yum clean all
+RUN yum -y install python-pip python-virtualenv graphviz openssh-clients; yum clean all
 
 #Installing python tools
 RUN pip install -U pip
